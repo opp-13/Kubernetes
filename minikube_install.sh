@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ -f /etc/debian_version ]; then
-    echo "ubuntu found"
-    
-    if [ "$(id -u)" -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
         echo "Please run this bash in root."
         exit 1
-    fi
+fi
+
+if [ -f /etc/debian_version ]; then
+    echo "ubuntu found"
 
     sudo apt-get update
     sudo apt-get upgrade -y
@@ -35,13 +35,8 @@ if [ -f /etc/debian_version ]; then
 
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-    elif [ -f /etc/redhat-release ]; then
-        echo "rehl found"
-
-    if [ "$(id -u)" -ne 0 ]; then
-        echo "Please run this bash in root."
-        exit 1
-    fi
+elif [ -f /etc/redhat-release ]; then
+    echo "rehl found"
 
     sudo yum update -y
 
